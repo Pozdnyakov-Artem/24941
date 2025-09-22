@@ -125,11 +125,11 @@ void set_new_ulimit(const char* str){
 
     if(*endptr!='\0'){
         fprintf(stderr, "Invalid ulimit value: %s\n", str);
-        return -1;
     }
-
-    long new_ulimit = ulimit(UL_SETFSIZE,new_val);
-    printf("New limit: %ld",new_val);
+    else{
+        long new_ulimit = ulimit(UL_SETFSIZE,new_val);
+        printf("New limit: %ld",new_val);
+    }
 
 }
 

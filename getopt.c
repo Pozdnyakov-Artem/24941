@@ -25,12 +25,16 @@ void print_id_proc(){
     printf("Process: PID=%d\nParent PID=%d\nGroup PID=%d\n", getpid(), getppid(),getpgrp());
 }
 
-// void print_ulimit(){
-//     struct rlimit limit;
+void print_ulimit(){
+    struct rlimit limit;
+    long seva = ulimit(UL_GETFSIZE);
+    if(getrlimit(RLIMIT_FSIZE,&limit)==0){
+        printf("%ld %ld\n",limit.rlim_cur,limit.rlim_max);
+        printf("seva = %ld\n",seva);
 
-//     if(getrlimit()==0)
+    }
 
-// }
+}
 
 void print_size_corfile(){
     struct rlimit limit;

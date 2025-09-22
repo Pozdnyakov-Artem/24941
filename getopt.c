@@ -1,8 +1,10 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/types.h>
 #include <sys/resource.h>
+#include <ulimit.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <limits.h>
 
 void print_id_user(){
     printf("Real UID %d\n",getuid());
@@ -47,7 +49,7 @@ void print_size_corfile(){
 
 void print_current_directory(){
     char cwd[PATH_MAX];
-    if(getcwd(cwd,sizeof(cwd))!=NULL){
+    if(getcwd(cwd,PATH_MAX)!=NULL){
         printf("Current directory: %s\n",cwd);
     }
     else{
@@ -87,12 +89,13 @@ int set_environment_variable(const char*str){
 
 }
 
-int set_core_size(const char str){
+int set_core_size(const char *str){
 
     char *endptr;
-    long new_size=strtol(str,endptr,10);
+    char*str_copy = strdop(str)
+    long new_size=strtol(str_copy,&endptr,10);
     if(*endptr!='\0'){
-        fprintf(stderr, "Invalid core size value: %s\n", size_str);
+        fprintf(stderr, "Invalid core size value: %s\n", new_size);
         return -1;
     }
 

@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <limits.h>
+#include <string.h>
 
 void print_id_user(){
     printf("Real UID %d\n",getuid());
@@ -73,7 +74,7 @@ int set_environment_variable(const char*str){
 
     char*eq=strchr(name,'=');
     if(!eq){
-        fprintf(stderr, "Invalid environment assignment: %s\n", assignment);
+        fprintf(stderr, "Invalid environment assignment: %s\n", str);
     }
 
     eq='\0';
@@ -83,7 +84,7 @@ int set_environment_variable(const char*str){
         perror("setenv");
         return -1;
     }
-    printf("Set environment variable: %s=%s\n", name, value);
+    printf("Set environment variable: %s=%s\n", name_env_var, value_env_var);
 
     return 0;
 
@@ -92,10 +93,10 @@ int set_environment_variable(const char*str){
 int set_core_size(const char *str){
 
     char *endptr;
-    char*str_copy = strdop(str)
+    char*str_copy = strdop(str);
     long new_size=strtol(str_copy,&endptr,10);
     if(*endptr!='\0'){
-        fprintf(stderr, "Invalid core size value: %s\n", new_size);
+        fprintf(stderr, "Invalid core size value: %s\n", str_copy);
         return -1;
     }
 

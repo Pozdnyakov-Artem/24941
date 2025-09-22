@@ -147,9 +147,9 @@ int main(int argc, char *argv[])
                 case 'p':
                     print_id_proc();
                     break;
-                // case 'u':
-
-                //     break;
+                case 'u':
+                    print_ulimit();
+                    break;
                 case 'c':
                     print_size_corfile();
                     break;

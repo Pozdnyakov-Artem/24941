@@ -46,7 +46,7 @@ void print_size_corfile(){
 }
 
 void print_current_directory(){
-    char str[PATH_MAX];
+    char cwd[PATH_MAX];
     if(getcwd(cwd,sizeof(cwd))!=NULL){
         printf("Current directory: %s\n",cwd);
     }
@@ -118,7 +118,7 @@ int main(int argc, char *argv[])
     for(int i=argc-1; i>0; i--)
     {
         int temp_argc = 2, optind = 1;
-        char* temp_argv = {argv[0],argv[i],NULL};
+        const char* temp_argv = {argv[0],argv[i],NULL};
 
         while((c = getopt(temp_argc,temp_argv,"ispucdvhU:C:V:"))!=-1)
         {

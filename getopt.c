@@ -119,6 +119,12 @@ int main(int argc, char *argv[])
 
     int c;
     int i;
+
+    if(argc<=1){
+        printf("No arguments\n");
+        return 0;
+    }
+
     for(i=argc-1; i>0; i--)
     {
         int temp_argc = 2, optind = 1;

@@ -26,12 +26,13 @@ void print_id_proc(){
 }
 
 void print_ulimit(){
-    struct rlimit limit;
-    long seva = ulimit(UL_GETFSIZE);
-    if(getrlimit(RLIMIT_FSIZE,&limit)==0){
-        printf("%ld %ld\n",limit.rlim_cur,limit.rlim_max);
-        printf("seva = %ld\n",seva);
+    long limit = ulimit(UL_GETFSIZE);
 
+    if(limit==-1 && errno != 0){
+        printf("ulimit:  %ld\n",limit);
+    }
+    else{
+        perror("Error getting ulimit");
     }
 
 }
@@ -118,6 +119,20 @@ int set_core_size(const char *str){
 
 }
 
+void set_new_ulimit(const char* str){
+    char*endptr;
+    long new_val = strtol(str,&endptr,10);
+
+    if(*endptr!='\0'){
+        fprintf(stderr, "Invalid ulimit value: %s\n", str);
+        return -1;
+    }
+
+    long new_ulimit = ulimit(UL_SETFSIZE,new_val);
+    printf("New limit: %ld",new_val);
+
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -164,6 +179,9 @@ int main(int argc, char *argv[])
                     break;
                 case 'C':
                     set_core_size(optarg);
+                    break;
+                case 'U':
+                    set_new_ulimit(optarg);
                     break;
             }   
 

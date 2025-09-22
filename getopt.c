@@ -128,7 +128,7 @@ void set_new_ulimit(const char* str){
     }
     else{
         long new_ulimit = ulimit(UL_SETFSIZE,new_val);
-        printf("New limit: %ld",new_val);
+        printf("New limit: %ld\n",new_val);
     }
 
 }
@@ -182,6 +182,9 @@ int main(int argc, char *argv[])
                     break;
                 case 'U':
                     set_new_ulimit(optarg);
+                    break;
+                case '?'
+                    printf("Invalid option %c\n",optarg);
                     break;
             }   
 

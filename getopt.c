@@ -93,7 +93,7 @@ int set_environment_variable(const char*str){
 int set_core_size(const char *str){
 
     char *endptr;
-    char*str_copy = strdop(str);
+    char*str_copy = strdup(str);
     long new_size=strtol(str_copy,&endptr,10);
     if(*endptr!='\0'){
         fprintf(stderr, "Invalid core size value: %s\n", str_copy);
@@ -118,11 +118,11 @@ int main(int argc, char *argv[])
 {
 
     int c;
-
-    for(int i=argc-1; i>0; i--)
+    int i;
+    for(i=argc-1; i>0; i--)
     {
         int temp_argc = 2, optind = 1;
-        const char* temp_argv = {argv[0],argv[i],NULL};
+        char* temp_argv[] = {argv[0],argv[i],NULL};
 
         while((c = getopt(temp_argc,temp_argv,"ispucdvhU:C:V:"))!=-1)
         {

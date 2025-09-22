@@ -183,7 +183,7 @@ int main(int argc, char *argv[])
                 case 'U':
                     set_new_ulimit(optarg);
                     break;
-                case '?'
+                case '?':
                     printf("Invalid option %c\n",optarg);
                     break;
             }   

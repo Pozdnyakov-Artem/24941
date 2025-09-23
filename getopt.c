@@ -29,10 +29,10 @@ void print_ulimit(){
     long limit = ulimit(UL_GETFSIZE);
 
     if(limit==-1 && errno != 0){
-        printf("ulimit:  %ld\n",limit);
+        perror("Error getting ulimit\n");
     }
     else{
-        perror("Error getting ulimit\n");
+        printf("ulimit:  %ld\n",limit);   
     }
 
 }

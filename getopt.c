@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/resource.h>
-#include <sys/ulimit.h>
+#include <ulimit.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <limits.h>

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/resource.h>
-#include <ulimit.h>
+#include <sys/ulimit.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <limits.h>
@@ -73,28 +73,28 @@ void print_environment(){
     }
 }
 
-int set_environment_variable(char*str){
+void set_environment_variable(char*str){
 
-    int res = putenv(str);    
+    char* str_copy = strdup(str);
+    int res = putenv(str_copy);    
 
     if(res==0){
-
+        free(str_copy);
         printf("Set environment variable successful\n");
     }
     else{
+        free(str_copy);
         perror("Error changing or creating envirnment variable\n");
     }
 
-    return 0;
-
 }
 
-int set_core_size(const char *str){
+void set_core_size(const char *str){
 
     char *endptr;
     char*str_copy = strdup(str);
     long new_size=strtol(str_copy,&endptr,10);
-    if(*endptr!='\0'){
+    if(*endptr!='\0' || errno==ERANGE){
         fprintf(stderr, "Invalid core size value: %s\n", str_copy);
         return -1;
     }
@@ -104,12 +104,12 @@ int set_core_size(const char *str){
     limit.rlim_max = (rlim_t)new_size;
 
     if(setrlimit(RLIMIT_CORE,&limit)==-1){
+        free(str_copy);
         perror("setrlimit");
-        return -1;
     }
 
     printf("Core file size limit changed to: %ld bytes\n", new_size);
-    return 0;
+    free(str_copy);
 
 }
 
@@ -165,13 +165,28 @@ int main(int argc, char *argv[])
                 print_environment();
                 break;
             case 'V':
-                set_environment_variable(optarg);
+                if (optarg) {
+                    set_environment_variable(optarg);
+                } 
+                else {
+                    fprintf(stderr, "Option -V requires an argument\n");
+                }
                 break;
             case 'C':
-                set_core_size(optarg);
+                if (optarg) {
+                    set_core_size(optarg);
+                } 
+                else {
+                    fprintf(stderr, "Option -C requires an argument\n");
+                }
                 break;
             case 'U':
-                set_new_ulimit(optarg);
+                if (optarg) {
+                    set_new_ulimit(optarg);
+                } 
+                else {
+                    fprintf(stderr, "Option -U requires an argument\n");
+                }
                 break;
             case '?':
                 printf("Invalid option %c\n",optopt);

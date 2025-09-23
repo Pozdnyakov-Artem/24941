@@ -97,20 +97,20 @@ void set_core_size(const char *str){
     if(*endptr!='\0' || errno==ERANGE){
         perror("Invalid core size value\n");
     }
-
-    struct rlimit limit;
-    limit.rlim_cur = (rlim_t)new_size;
-    limit.rlim_max = (rlim_t)new_size;
-
-    if(setrlimit(RLIMIT_CORE,&limit)==-1){
-        free(str_copy);
-        perror("setrlimit");
-    }
     else{
-        printf("Core file size limit changed to: %ld bytes\n", new_size);
-        free(str_copy);
-    }
+        struct rlimit limit;
+        limit.rlim_cur = (rlim_t)new_size;
+        limit.rlim_max = (rlim_t)new_size;
 
+        if(setrlimit(RLIMIT_CORE,&limit)==-1){
+            free(str_copy);
+            perror("setrlimit");
+        }
+        else{
+            printf("Core file size limit changed to: %ld bytes\n", new_size);
+            free(str_copy);
+        }
+    }
 }
 
 void set_new_ulimit(const char* str){

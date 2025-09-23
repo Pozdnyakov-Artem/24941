@@ -106,9 +106,10 @@ void set_core_size(const char *str){
         free(str_copy);
         perror("setrlimit");
     }
-
-    printf("Core file size limit changed to: %ld bytes\n", new_size);
-    free(str_copy);
+    else{
+        printf("Core file size limit changed to: %ld bytes\n", new_size);
+        free(str_copy);
+    }
 
 }
 

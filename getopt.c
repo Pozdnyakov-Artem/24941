@@ -139,56 +139,44 @@ int main(int argc, char *argv[])
         return 0;
     }
 
-    for(i=argc-1; i>0; i--)
+    while((c = getopt(argc,argv,"ispuU:cC:dvV:"))!=-1)
     {
-        int temp_argc = 2, optind = 0;
-        char* temp_argv[] = {argv[0], argv[i], NULL};
-
-        optind = 0;    // Сброс индекса аргумента
-        opterr = 1;    // Включение сообщений об ошибках (опционально)
-        optopt = 0;    // Сброс последней опции
-        optarg = NULL;
-
-        while((c = getopt(temp_argc,temp_argv,"ispuU:cC:dvV:"))!=-1)
-        {
-            count++;
-            switch(c){
-                case 'i':
-                    print_id_user();
-                    break;
-                case 's':
-                    become_a_proc_leader();
-                    break;
-                case 'p':
-                    print_id_proc();
-                    break;
-                case 'u':
-                    print_ulimit();
-                    break;
-                case 'c':
-                    print_size_corfile();
-                    break;
-                case 'd':
-                    print_current_directory();
-                    break;
-                case 'v':
-                    print_environment();
-                    break;
-                case 'V':
-                    set_environment_variable(optarg);
-                    break;
-                case 'C':
-                    set_core_size(optarg);
-                    break;
-                case 'U':
-                    set_new_ulimit(optarg);
-                    break;
-                case '?':
-                    printf("Invalid option %c\n",optopt);
-                    break;
-            }   
-
-        }
+        count++;
+        switch(c){
+            case 'i':
+                print_id_user();
+                break;
+            case 's':
+                become_a_proc_leader();
+                break;
+            case 'p':
+                print_id_proc();
+                break;
+            case 'u':
+                print_ulimit();
+                break;
+            case 'c':
+                print_size_corfile();
+                break;
+            case 'd':
+                print_current_directory();
+                break;
+            case 'v':
+                print_environment();
+                break;
+            case 'V':
+                set_environment_variable(optarg);
+                break;
+            case 'C':
+                set_core_size(optarg);
+                break;
+            case 'U':
+                set_new_ulimit(optarg);
+                break;
+            case '?':
+                printf("Invalid option %c\n",optopt);
+                break;
+        }   
     }
 
     if(count==0)

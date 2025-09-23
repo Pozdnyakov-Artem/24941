@@ -132,6 +132,7 @@ int main(int argc, char *argv[])
 
     int c;
     int i;
+    int count=0;
 
     if(argc<=1){
         printf("No arguments\n");
@@ -142,7 +143,6 @@ int main(int argc, char *argv[])
     {
         int temp_argc = 2, optind = 1;
         char* temp_argv[] = {argv[0],argv[i],NULL};
-        int count=0;
 
         while((c = getopt(temp_argc,temp_argv,"ispuU:cC:dvV:"))!=-1)
         {
@@ -184,11 +184,10 @@ int main(int argc, char *argv[])
             }   
 
         }
-
-        if(count==0)
-            printf("No options\n");
-
     }
+
+    if(count==0)
+            printf("No options\n");
 
     return 0;
 }

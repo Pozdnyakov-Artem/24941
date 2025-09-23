@@ -8,8 +8,8 @@
 #include <string.h>
 
 void print_id_user(){
-    printf("Real UID %d\n",getuid());
-    printf("Effective UID: %d\n",geteuid());
+    printf("Real ID %d\n",getuid());
+    printf("Effective ID: %d\n",geteuid());
 }
 
 void become_a_proc_leader(){
@@ -32,7 +32,7 @@ void print_ulimit(){
         printf("ulimit:  %ld\n",limit);
     }
     else{
-        perror("Error getting ulimit");
+        perror("Error getting ulimit\n");
     }
 
 }

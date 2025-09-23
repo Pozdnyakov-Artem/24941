@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
 
     for(i=argc-1; i>0; i--)
     {
-        int temp_argc = 2, optind = 1;
+        int temp_argc = 2, optind = 0;
         char* temp_argv[] = {argv[0],argv[i],NULL};
 
         while((c = getopt(temp_argc,temp_argv,"ispuU:cC:dvV:"))!=-1)
@@ -179,7 +179,7 @@ int main(int argc, char *argv[])
                     set_new_ulimit(optarg);
                     break;
                 case '?':
-                    printf("Invalid option %c\n",optarg);
+                    printf("Invalid option %c\n",optopt);
                     break;
             }   
 

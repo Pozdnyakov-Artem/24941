@@ -148,10 +148,11 @@ int main(int argc, char *argv[])
     {
         int temp_argc = 2, optind = 1;
         char* temp_argv[] = {argv[0],argv[i],NULL};
+        int count=0;
 
-        while((c = getopt(temp_argc,temp_argv,"ispucdvhU:C:V:"))!=-1)
+        while((c = getopt(temp_argc,temp_argv,"ispuU:cC:dvV:"))!=-1)
         {
-
+            count++;
             switch(c){
                 case 'i':
                     print_id_user();
@@ -190,6 +191,8 @@ int main(int argc, char *argv[])
 
         }
 
+        if(count==0)
+            printf("No options\n");
 
     }
 

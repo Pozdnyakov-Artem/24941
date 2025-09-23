@@ -75,21 +75,12 @@ void print_environment(){
 
 int set_environment_variable(const char*str){
 
-    char*name = strdup(str);
-
-    char*eq=strchr(name,'=');
-    if(!eq){
-        fprintf(stderr, "Invalid environment assignment: %s\n", str);
-    }
-
-    eq='\0';
-    char*name_env_var = name;
-    char*value_env_var=eq+1;
-    if(setenv(name_env_var,value_env_var,1)==-1){
-        perror("setenv");
+    
+    if(putenv(str)==-1){
+        perror("Error changing or creating envirnment variable");
         return -1;
     }
-    printf("Set environment variable: %s=%s\n", name_env_var, value_env_var);
+    printf("Set environment variable successful");
 
     return 0;
 

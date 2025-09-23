@@ -142,7 +142,12 @@ int main(int argc, char *argv[])
     for(i=argc-1; i>0; i--)
     {
         int temp_argc = 2, optind = 0;
-        char* temp_argv[] = {argv[0],argv[i],NULL};
+        char* temp_argv[] = {argv[0], argv[i], NULL};
+
+        optind = 0;    // Сброс индекса аргумента
+        opterr = 1;    // Включение сообщений об ошибках (опционально)
+        optopt = 0;    // Сброс последней опции
+        optarg = NULL;
 
         while((c = getopt(temp_argc,temp_argv,"ispuU:cC:dvV:"))!=-1)
         {

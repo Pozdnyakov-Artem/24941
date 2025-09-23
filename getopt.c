@@ -95,7 +95,7 @@ void set_core_size(const char *str){
     char*str_copy = strdup(str);
     long new_size=strtol(str_copy,&endptr,10);
     if(*endptr!='\0' || errno==ERANGE){
-        fprintf(stderr, "Invalid core size value: %s\n", str_copy);
+        perror("Invalid core size value: %s\n", str_copy);
     }
 
     struct rlimit limit;

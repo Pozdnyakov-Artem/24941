@@ -73,7 +73,7 @@ void print_environment(){
     }
 }
 
-int set_environment_variable(const char*str){
+int set_environment_variable(char*str){
 
     
     if(putenv(str)==-1){

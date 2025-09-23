@@ -77,11 +77,13 @@ int set_environment_variable(char*str){
 
     int res = putenv(str);    
 
-    if(res==-1){
-        perror("Error changing or creating envirnment variable\n");
-        return -1;
+    if(res==0){
+
+        printf("Set environment variable successful\n");
     }
-    printf("Set environment variable successful\n");
+    else{
+        perror("Error changing or creating envirnment variable\n");
+    }
 
     return 0;
 

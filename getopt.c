@@ -196,6 +196,5 @@ int main(int argc, char *argv[])
 
     if(count==0)
             printf("No options\n");
-
     return 0;
 }

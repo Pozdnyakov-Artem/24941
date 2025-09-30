@@ -1,10 +1,11 @@
 #include <stdio.h>
+#include <unistd.h>
 
 void print_id_and_open_file(){
 
-    printf("ID = %d\n UID = %d\n",getuid(),getueid());
+    printf("ID = %d\nUID = %d\n",getuid(),geteuid());
 
-    FILE *file = fopen("cool.txt","r");
+    FILE *file = fopen("newfile.txt","r");
 
     if(file==NULL)
     {
